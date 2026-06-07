@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
 export function SmoothScrollProvider({
@@ -18,15 +18,18 @@ export function SmoothScrollProvider({
       infinite: false,
     });
 
-    // Sync Lenis with framer-motion's scroll tracking
+    // Use a ref-like variable to track the latest RAF ID
+    // so cleanup always cancels the correct frame
+    let currentRafId: number;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      currentRafId = requestAnimationFrame(raf);
     }
-    const rafId = requestAnimationFrame(raf);
+    currentRafId = requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(currentRafId);
       lenis.destroy();
     };
   }, []);

@@ -2,6 +2,7 @@
 
 import { useTransform, motion, useScroll, MotionValue, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import { Boxes } from '@/components/ui/background-boxes';
 
 // ── Ease ──────────────────────────────────────────────────────────────────────
@@ -331,10 +332,14 @@ function Card({ i, project, totalCards, scrollYProgress }: CardProps) {
             className="absolute inset-0"
             style={{ scale: imageScale, opacity: imageOpacity }}
           >
-            <img
+            <Image
               src={project.image}
               alt={`${project.title} screenshot`}
-              className="w-full h-full object-cover object-top"
+              fill
+              sizes="(max-width: 768px) 100vw, 55vw"
+              className="object-cover object-top"
+              quality={80}
+              loading="lazy"
             />
           </motion.div>
 
