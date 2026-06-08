@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import MobileMinimalBackground from "@/components/hero-minimalism";
 
 function FloatingPaths({ position }: { position: number }) {
     const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -47,6 +49,19 @@ function FloatingPaths({ position }: { position: number }) {
 
 /** Drop this anywhere as an `absolute inset-0` layer to get the animated path background. */
 export function BackgroundPaths() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const check =
+            window.matchMedia("(max-width: 768px)").matches ||
+            window.matchMedia("(pointer: coarse)").matches;
+        setIsMobile(check);
+    }, []);
+
+    if (isMobile) {
+        return <MobileMinimalBackground />;
+    }
+
     return (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <FloatingPaths position={1} />

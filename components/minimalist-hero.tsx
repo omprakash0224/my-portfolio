@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 import { BackgroundPaths } from "./ui/background-paths";
+import { BlurFade } from "./ui/blur-fade";
 import { ContactPopover } from "./ui/popover-1";
 
 // LinkedIn icon — using inline SVG (lucide-react version may not export it)
@@ -299,13 +300,30 @@ export function MinimalistHero() {
         )}
       </FadeIn>
 
-      {/* ── Hero Heading ── */}
-      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 px-4 sm:px-6">
+      {/* ── Hero Heading — mobile (BlurFade) ── */}
+      <div className="md:hidden mt-10 px-6 z-20">
+        <BlurFade delay={0.2} duration={0.7} yOffset={20} blur="12px">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em]" style={{ color: "#9CA3AF" }}>
+            Hi, I'm
+          </p>
+        </BlurFade>
+        <BlurFade delay={0.35} duration={0.8} yOffset={24} blur="14px" as="h1">
+          <span
+            className="hero-heading block font-black uppercase tracking-tight leading-none"
+            style={{ fontSize: "clamp(3.75rem, 22vw, 7rem)" }}
+          >
+            Om
+          </span>
+        </BlurFade>
+      </div>
+
+      {/* ── Hero Heading — desktop ── */}
+      <div className="hidden md:block md:-mt-5 px-4 sm:px-6 overflow-hidden">
         <FadeIn delay={0.15} y={40}>
           <h1
-            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full"
+            className="hero-heading font-black uppercase tracking-tight leading-none w-full whitespace-nowrap"
             style={{
-              fontSize: "clamp(3rem, 17.5vw, 22rem)",
+              fontSize: "clamp(3.5rem, 17.5vw, 22rem)",
             }}
           >
             Hi, i&apos;m om

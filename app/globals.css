@@ -137,10 +137,20 @@
 
 /* Hero gradient heading */
 .hero-heading {
+  color: #BBCCD7; /* fallback for browsers where background-clip:text fails */
   background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Ensure the gradient renders on mobile — some Android/iOS WebKit builds
+   silently ignore background-clip:text if the element has no explicit color */
+@supports not (-webkit-background-clip: text) {
+  .hero-heading {
+    -webkit-text-fill-color: unset;
+    color: #BBCCD7;
+  }
 }
 
 /* Smooth scroll (native fallback when Lenis isn't mounted) */
